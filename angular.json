@@ -37,7 +37,11 @@
             "styles": [
               "src/styles.less"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "enquire.js",
+              "date-fns"
+            ]
           },
           "configurations": {
             "production": {
