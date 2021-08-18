@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ThemeChangerService } from "./theme-changer.service";
 import { CustomColors, CustomFontSize, CustomRadiusSize, CustomThemes, ICustomSizeData } from "src/util/theme";
 import { Theme } from "ng-devui/theme";

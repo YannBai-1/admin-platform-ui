@@ -33,9 +33,9 @@ export class ThemeBuildFactoryService {
                 const extendsKey = pattern[handleKey!].extends;
                 const extendsColor = Color(pattern[extendsKey!]['default-value']);
                 const colorOffset = <IColorOffset>pattern[handleKey!].offset;
-                const {mode, offset} = this.getColorEffectOffset(extendsColor, colorOffset, effect);
+                const {mode, offset} = ThemeBuildFactoryService.getColorEffectOffset(extendsColor, colorOffset, effect);
                 pattern[handleKey!]['default-value'] = ThemeBuildFactoryService.getHexOrRgba(
-                    this.getColorValue(extendsColor, offset, mode)
+                    ThemeBuildFactoryService.getColorValue(extendsColor, offset, mode)
                 );
             }
 
@@ -63,9 +63,9 @@ export class ThemeBuildFactoryService {
             const extendsKey = pattern[handleKey].extends;
             const extendsColor = Color(pattern[extendsKey!]['default-value']);
             const colorOffset = <IColorOffset>pattern[handleKey].offset;
-            const {mode, offset} = this.getColorEffectOffset(extendsColor, colorOffset, effect);
+            const {mode, offset} = ThemeBuildFactoryService.getColorEffectOffset(extendsColor, colorOffset, effect);
             pattern[handleKey]['default-value'] = ThemeBuildFactoryService.getHexOrRgba(
-                this.getColorValue(extendsColor, offset!, mode)
+                ThemeBuildFactoryService.getColorValue(extendsColor, offset!, mode)
             );
         });
     }
@@ -103,15 +103,15 @@ export class ThemeBuildFactoryService {
         )).map(colorObj => {
             if (colorObj.extends) {
                 colorObj.offset = {
-                    hsl: this.getColorOffset(colorObj.color, colorObj.extends, 'hsl'),
-                    hsv: this.getColorOffset(colorObj.color, colorObj.extends, 'hsv')
+                    hsl: ThemeBuildFactoryService.getColorOffset(colorObj.color, colorObj.extends, 'hsl'),
+                    hsv: ThemeBuildFactoryService.getColorOffset(colorObj.color, colorObj.extends, 'hsv')
                 };
             }
             return colorObj;
         });
     }
 
-    private getColorOffset<T>(target: Color, source: Color, mode: 'hsl' | 'hsv') {
+    private static getColorOffset<T>(target: Color, source: Color, mode: 'hsl' | 'hsv') {
         const targetModel = target[mode]();
         const sourceModel = source[mode]();
         const offset = {
@@ -134,7 +134,7 @@ export class ThemeBuildFactoryService {
         };
     }
 
-    private getColorEffectOffset(source: Color, colorOffset: IColorOffset, effect?: IEffect): { mode: 'hsl' | 'hsv', offset: HslModel | HsvModel } {
+    private static getColorEffectOffset(source: Color, colorOffset: IColorOffset, effect?: IEffect): { mode: 'hsl' | 'hsv', offset: HslModel | HsvModel } {
         let result: { mode: 'hsl' | 'hsv', offset: any };
         switch (effect) {
             case 'hsl':
@@ -201,7 +201,7 @@ export class ThemeBuildFactoryService {
         return result;
     }
 
-    private getColorValue(source: Color, offset: HslModel | HsvModel, mode: 'hsl' | 'hsv'): Color {
+    private static getColorValue(source: Color, offset: HslModel | HsvModel, mode: 'hsl' | 'hsv'): Color {
         const sourceModel = source[mode]();
         offset = offset as HslModel
         const value = {

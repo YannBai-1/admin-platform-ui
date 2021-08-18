@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ThemeService } from "ng-devui/theme";
 import { CustomFontSize, CustomRadiusSize, ICustomSize, SizeKey } from "src/util/theme";
-import { ThemeBuildFactoryService } from "./util/theme-build-factory.service";
 
 @Injectable({
     providedIn: 'root'
@@ -24,7 +23,8 @@ export class ThemeChangerService {
     currentFontId?: string
     currentRadiusId?: string
 
-    constructor(private buildService: ThemeBuildFactoryService) {
+    // constructor(private buildService: ThemeBuildFactoryService) {
+    constructor() {
         this.themeService = window['devuiThemeService' as any] as any;
         this.themes = window['devuiThemes' as any] as any;
     }
@@ -78,7 +78,8 @@ export class ThemeChangerService {
     }
 
     private getCustomThemeData(color?: string, isDark?: boolean) {
-        return color ? this.buildService.genThemeData([{colorName: 'devui-brand', color: color,}], isDark, 'hsl') : {};
+        // return color ? this.buildService.genThemeData([{colorName: 'devui-brand', color: color,}], isDark, 'hsl') : {};
+        return {};
     }
 
     private static getSizeAndRadiusData(fId: SizeKey, rId: SizeKey) {
